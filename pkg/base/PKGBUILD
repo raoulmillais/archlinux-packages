@@ -1,0 +1,62 @@
+# Maintainer: Raoul Millais <raoul@raoulmillais.com>
+pkgname=raoulmillais-base
+pkgver=0.0.1
+pkgrel=1
+pkgdesc="Base system configuration for raoulmillais systems"
+groups=('raoulmillais')
+arch=('any')
+url="https://github.com/raoulmillais/archlinux-packages"
+license=('MIT')
+
+provides=( 'vim' 'vi' )
+conflicts=( 'vim' 'vi' )
+replaces=( 'vim' 'vi' )
+install=raoulmillais-base.install
+
+# minimum needed
+depends=(
+  'base'
+  'linux'
+  'linux-firmware'
+)
+
+# packages to my liking for a non-gui system
+depends+=(
+  'aurutils'
+  'base-devel'
+  'bat'
+  'bind-tools' # dig etc
+  'coreutils'
+  'curl'
+  'dos2unix'
+  'e2fsprogs' # ext4 tools
+  'efibootmgr'
+  'filesystem'
+  'fzf'
+  'git'
+  'grub'
+  'htop'
+  'hub'
+  'iotop'
+  'lsof'
+  'man-db'
+  'man-pages'
+  'networkmanager'
+  'openssh'
+  'rsync'
+  'shellcheck'
+  'the_silver_searcher'
+  'tmux'
+  'vifm'
+  'vim'
+  'vim'
+  'wget'
+  'zsh'
+)
+
+rootdir=$PWD
+
+package() {
+    cp -a "$rootdir/files/"* "$pkgdir"
+    chmod -R 0750 "$pkgdir/etc/sudoers.d"
+}
