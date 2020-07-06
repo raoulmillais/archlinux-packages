@@ -4,7 +4,7 @@ trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
 
 package=${1:?"Missing package"}
 
-REMOTE_PATH=s3://raoulmillais/repo/x86_64
+REMOTE_PATH=s3://raoulmillais-arch-repo/repo/x86_64
 LOCAL_PATH=$HOME/aur-pkg-repo
 REPO_NAME=aur-pkg-repo
 
