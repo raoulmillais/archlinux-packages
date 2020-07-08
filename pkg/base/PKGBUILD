@@ -8,22 +8,13 @@ arch=('any')
 url="https://github.com/raoulmillais/archlinux-packages"
 license=('MIT')
 
-provides=( 'vim' 'vi' )
-conflicts=( 'vim' 'vi' )
-replaces=( 'vim' 'vi' )
 install=raoulmillais-base.install
 
-# minimum needed
 depends=(
   'base'
   'linux'
   'linux-firmware'
-)
-
-# packages to my liking for a non-gui system
-depends+=(
   'aurutils'
-  'base-devel'
   'bat'
   'bind-tools' # dig etc
   'coreutils'
@@ -49,9 +40,36 @@ depends+=(
   'tmux'
   'vifm'
   'vim'
-  'vim'
   'wget'
   'zsh'
+)
+
+# base-devel
+depends+=(
+  'autoconf'
+  'automake'
+  'binutils'
+  'bison'
+  'fakeroot'
+  'file'
+  'findutils'
+  'flex'
+  'gawk'
+  'gcc'
+  'gettext'
+  'grep'
+  'groff'
+  'gzip'
+  'libtool'
+  'm4'
+  'make'
+  'pacman'
+  'patch'
+  'pkgconf'
+  'sed'
+  'sudo'
+  'texinfo'
+  'which'
 )
 
 rootdir=$PWD
