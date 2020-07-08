@@ -1,12 +1,17 @@
 #!/bin/bash
 set -uo pipefail
-trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+
+trap 'catch $? $LINENO' ERR
+catch() {
+  echo "Error $1 occurred on line $2"
+}
 
 REMOTE_PATH=s3://raoulmillais-arch-repo/repo/x86_64
 LOCAL_PATH=$HOME/aur-pkg-repo
 REPO_NAME=aur-pkg-repo
 
-PACKAGES=${@:-pkg/*}
+# shellcheck disable=SC2124
+PACKAGES=${@:-pkg/**/*}
 CHROOT="$HOME/.local/share/arch-root"
 
 mkdir -p "$LOCAL_PATH"
@@ -25,14 +30,16 @@ for package in $PACKAGES; do (
     makechrootpkg -cur "$CHROOT"
 ) done
 
-s3cmd sync "$REMOTE_PATH/$REPO_NAME".{db,files}.tar.xz "$LOCAL_PATH/"
-ln -sf "$REPO_NAME.db.tar.xz" "$LOCAL_PATH/$REPO_NAME.db"
-ln -sf "$REPO_NAME.files.tar.xz" "$LOCAL_PATH/$REPO_NAME.files"
+s3cmd sync "$REMOTE_PATH/$REPO_NAME".{db,files}.tar "$LOCAL_PATH/"
+ln -sf "$REPO_NAME.db.tar" "$LOCAL_PATH/$REPO_NAME.db"
+ln -sf "$REPO_NAME.files.tar" "$LOCAL_PATH/$REPO_NAME.files"
 
 
-repo-add "$LOCAL_PATH/$REPO_NAME.db.tar.xz" "${PACKAGES[@]}/"*.pkg.tar.zst
+# shellcheck disable=SC2145,2068
+repo-add "$LOCAL_PATH/$REPO_NAME.db.tar" ${PACKAGES[@]}/*.pkg.tar.zst
+## Sync local DB to remote and any packages ##
+# shellcheck disable=2145,2068
 s3cmd sync --follow-symlinks --acl-public \
-    "${PACKAGES[@]}/"*.pkg.tar.zst \
-    "$LOCAL_PATH/$REPO_NAME".{db,files}{,.tar.xz} \
-    "$REMOTE_PATH/"
-
+  ${PACKAGES[@]}/*.pkg.tar.zst \
+  "${LOCAL_PATH}/${REPO_NAME}".{db,files}{,.tar} \
+  "${REMOTE_PATH}/"

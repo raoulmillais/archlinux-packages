@@ -10,38 +10,53 @@ license=('MIT')
 
 install=raoulmillais-base.install
 
+# minimal foundation
 depends=(
   'base'
   'linux'
   'linux-firmware'
-  'aurutils'
+  'e2fsprogs' # ext4 tools
+  'efibootmgr'
+  'filesystem'
+  'grub'
+  'man-db'
+  'man-pages'
+  'networkmanager'
+  'shellcheck'
+  'tmux'
+  'vim'
+  'zsh'
+)
+
+# utilities
+depends+=(
   'bat'
   'bind-tools' # dig etc
   'coreutils'
   'curl'
   'dos2unix'
-  'e2fsprogs' # ext4 tools
-  'efibootmgr'
-  'filesystem'
   'fzf'
-  'git'
-  'grub'
   'htop'
-  'hub'
   'iotop'
   'lsof'
-  'man-db'
-  'man-pages'
-  'networkmanager'
   'openssh'
   'rsync'
-  'shellcheck'
   'the_silver_searcher'
-  'tmux'
   'vifm'
-  'vim'
   'wget'
-  'zsh'
+)
+
+# source control
+depends+=(
+  'git'
+  'hub'
+)
+
+# package management
+depends+=(
+  'aurutils'
+  'pacman-contrib'
+  'pacutils'
 )
 
 # base-devel
