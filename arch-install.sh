@@ -39,7 +39,7 @@ USER_NAME="raoul"
 DISPLAY_DRIVER="intel"
 
 # packages (all multiple)
-PACKAGES_PACMAN_INTERNET="firefox curl openssh transmission-gtk" 
+PACKAGES_PACMAN_INTERNET="firefox firefox-tridactyl curl openssh transmission-gtk" 
 PACKAGES_PACMAN_MULTIMEDIA="feh gimp inkscape vlc gstreamer gst-plugins-good gst-plugins-bad gst-plugins-ugly bluez bluez-utils"
 PACKAGES_PACMAN_UTILITIES="dosfstools"
 PACKAGES_PACMAN_DOCUMENTS_AND_TEXT="libreoffice-fresh neovim"
@@ -47,7 +47,9 @@ PACKAGES_PACMAN_SECURITY=""
 PACKAGES_PACMAN_SCIENCE=""
 PACKAGES_PACMAN_OTHERS="tmux"
 PACKAGES_PACMAN_DEVELOPER="virtualbox docker vagrant"
-PACKAGES_PACMAN_CUSTOM="alacritty rofi mate-power-manager alsa-utils exa zenith bat vifm ripgrep hub bind-tools coreutils dos2unixx fzf lsof"
+PACKAGES_PACMAN_CUSTOM="alsa-utils exa zenith bat vifm ripgrep hub bind-tools coreutils dos2unixx fzf lsof"
+
+PACKAGES_DESKTOP_ENVIRONMENT="alacritty compton rofi mate-power-manager i3-gaps i3lock i3status lightdm lightdm-gtk-greeter xorg-server"
 
 AUR="yay"
 
@@ -533,7 +535,7 @@ function setup_zsh() {
 function desktop_environment() {
     print_step "desktop_environment()"
 
-    pacman_install "i3-gaps i3blocks i3lock i3status rofi alacritty lightdm lightdm-gtk-greeter xorg-server"
+    pacman_install "$PACKAGES_DESKTOP_ENVIRONMENT"
     arch-chroot /mnt systemctl enable lightdm.service
     arch-chroot /mnt systemctl set-default graphical.target
 }
