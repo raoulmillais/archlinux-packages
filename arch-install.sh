@@ -40,9 +40,9 @@ DISPLAY_DRIVER="intel"
 
 # packages (all multiple)
 PACKAGES_PACMAN_INTERNET="firefox firefox-tridactyl curl openssh transmission-gtk" 
-PACKAGES_PACMAN_MULTIMEDIA="feh gimp inkscape vlc gstreamer gst-plugins-good gst-plugins-bad gst-plugins-ugly bluez bluez-utils"
+PACKAGES_PACMAN_MULTIMEDIA="feh gimp inkscape vlc gstreamer gst-plugins-good gst-plugins-bad gst-plugins-ugly bluez bluez-utils zathura zathura-pdf-mupdf"
 PACKAGES_PACMAN_UTILITIES="dosfstools"
-PACKAGES_PACMAN_DOCUMENTS_AND_TEXT="libreoffice-fresh neovim"
+PACKAGES_PACMAN_DOCUMENTS_AND_TEXT="neovim"
 PACKAGES_PACMAN_SECURITY=""
 PACKAGES_PACMAN_SCIENCE=""
 PACKAGES_PACMAN_OTHERS="tmux"
