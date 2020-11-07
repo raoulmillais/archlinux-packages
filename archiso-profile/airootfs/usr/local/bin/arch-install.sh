@@ -562,15 +562,7 @@ function aur_install() {
     set +e
     IFS=' ' PACKAGES=($1)
     AUR_COMMAND="yay -Syu --noconfirm --needed ${PACKAGES[@]}"
-    for VARIABLE in {1..5}
-    do
-        arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"$AUR_COMMAND\""
-        if [ $? == 0 ]; then
-            break
-        else
-            sleep 10
-        fi
-    done
+    arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"$AUR_COMMAND\""
     set -e
     arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 }
