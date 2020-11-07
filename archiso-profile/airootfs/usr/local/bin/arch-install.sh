@@ -93,6 +93,7 @@ main() {
     desktop_environment
     packages
     systemd_units
+    dotfiles
     terminate
     end
 }
@@ -599,6 +600,10 @@ function systemd_units() {
         UNIT=$(echo $UNIT | sed "s/!//g")
         arch-chroot /mnt systemctl $ACTION $UNIT
     done
+}
+
+function dotfiles() {
+  git clone --separate-git-dir=/mnt/home/$USER_NAME/.dotfiles https://github.com/raoulmillais/dotfiles.git /mnt/home/$USER_NAME/dotfiles-tmp
 }
 
 function terminate() {
