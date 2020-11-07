@@ -29,7 +29,7 @@ PACMAN_MIRROR="https://mirrors.kernel.org/archlinux/\$repo/os/\$arch"
 
 # config
 TIMEZONE="/usr/share/zoneinfo/Europe/London"
-LOCALES=("en_GB.UTF-8 UTF-8")
+LOCALES=("en_GB.UTF-8 en_US.UTF-8 UTF-8")
 LOCALE_CONF=("LANG=en_GB.UTF-8" "LANGUAGE=en_GB:en")
 KEYS="uk"
 KEYMAP="KEYMAP=uk"
@@ -58,7 +58,7 @@ PACKAGES_DESKTOP_ENVIRONMENT="alacritty picom rofi mate-power-manager i3-gaps i3
 
 AUR="yay"
 
-PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith rustup-git"
+PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith"
 
 PACKAGES_PACMAN="$PACKAGES_PACMAN_INTERNET $PACKAGES_PACMAN_MULTIMEDIA $PACKAGES_PACMAN_UTILITIES $PACKAGES_PACMAN_DOCUMENTS_AND_TEXT $PACKAGES_PACMAN_SECURITY $PACKAGES_PACMAN_SCIENCE $PACKAGES_PACMAN_OTHERS $PACKAGES_PACMAN_DEVELOPER $PACKAGES_PACMAN_CUSTOM"
 
