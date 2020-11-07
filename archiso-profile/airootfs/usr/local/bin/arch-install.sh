@@ -16,7 +16,7 @@ LUKS_DEVICE_NAME="cryptroot"
 CPU_VENDOR="intel"
 
 # mkinitcpio
-HOOKS="base udev usr resume btrfs keyboard autodetect modconf block keymap consolefont encrypt filesystems"
+HOOKS="base udev plymouth usr resume btrfs keyboard autodetect modconf block keymap consolefont plymouth-encrypt filesystems"
 
 # network
 WIFI_INTERFACE=""
@@ -52,13 +52,13 @@ PACKAGES_PACMAN_SECURITY=""
 PACKAGES_PACMAN_SCIENCE=""
 PACKAGES_PACMAN_OTHERS="tmux"
 PACKAGES_PACMAN_DEVELOPER="virtualbox docker vagrant"
-PACKAGES_PACMAN_CUSTOM="alsa-utils exa zenith bat vifm ripgrep hub bind-tools coreutils dos2unixx fzf lsof"
+PACKAGES_PACMAN_CUSTOM="alsa-utils exa bat vifm ripgrep hub bind-tools coreutils dos2unixx fzf lsof"
 
 PACKAGES_DESKTOP_ENVIRONMENT="alacritty picom rofi mate-power-manager i3-gaps i3lock i3status lightdm lightdm-gtk-greeter xorg-server"
 
 AUR="yay"
 
-PACKAGES_AUR="polybar rofi-dmenu nerdfonts-complete"
+PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith "
 
 PACKAGES_PACMAN="$PACKAGES_PACMAN_INTERNET $PACKAGES_PACMAN_MULTIMEDIA $PACKAGES_PACMAN_UTILITIES $PACKAGES_PACMAN_DOCUMENTS_AND_TEXT $PACKAGES_PACMAN_SECURITY $PACKAGES_PACMAN_SCIENCE $PACKAGES_PACMAN_OTHERS $PACKAGES_PACMAN_DEVELOPER $PACKAGES_PACMAN_CUSTOM"
 
@@ -585,8 +585,16 @@ function aur_install() {
         fi
     done
     set -e
+    configure_plymouth
 }
 
+configure_plymouth() {
+  cat <<EOF /mnt/etc/plymouth.conf
+[Daemon]
+Theme=script
+ShowDelay=5
+EOF
+}
 
 function systemd_units() {
     IFS=' ' UNITS=($SYSTEMD_UNITS)
