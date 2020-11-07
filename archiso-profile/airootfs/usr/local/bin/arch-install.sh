@@ -12,6 +12,7 @@ DEVICE="/dev/nvme0n1"
 SWAP_SIZE=''
 BIOS_TYPE="uefi"
 DEVICE_NVME="true"
+LUKS_DEVICE_NAME="cryptroot"
 CPU_VENDOR="intel"
 
 # network
@@ -164,9 +165,6 @@ function prepare_partition() {
         umount /mnt/boot
         umount /mnt
     fi
-    if [ -e "/dev/mapper/$LVM_VOLUME_GROUP-$LVM_VOLUME_LOGICAL" ]; then
-        umount "/dev/mapper/$LVM_VOLUME_GROUP-$LVM_VOLUME_LOGICAL"
-    fi
     if [ -e "/dev/mapper/$LUKS_DEVICE_NAME" ]; then
         cryptsetup close $LUKS_DEVICE_NAME
     fi
@@ -268,10 +266,14 @@ function partition() {
     wipefs -a $PARTITION_BOOT
     wipefs -a $DEVICE_ROOT
     mkfs.fat -n ESP -F32 $PARTITION_BOOT
-    mkfs."$FILE_SYSTEM_TYPE" -L root $DEVICE_ROOT
+    mkfs.btrfs -L root $DEVICE_ROOT
 
     PARTITION_OPTIONS="defaults"
-    PARTITION_OPTIONS="$PARTITION_OPTIONS,noatime,nodiscard"
+    
+    # Virtualbox NVM ssd doesn't support TRIM
+    if [ "$VIRTUALBOX" != "true" ]; then
+      PARTITION_OPTIONS="$PARTITION_OPTIONS,noatime,nodiscard"
+    fi
 
     # mount
     mount -o "$PARTITION_OPTIONS" "$DEVICE_ROOT" /mnt
