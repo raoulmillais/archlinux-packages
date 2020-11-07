@@ -411,6 +411,8 @@ function mkinitcpio_configuration() {
     arch-chroot /mnt sed -i "s/^HOOKS=(.*)$/HOOKS=($HOOKS)/" /etc/mkinitcpio.conf
 
     pacman_install "lz4"
+    install_yay
+    aur_install plymouth
 }
 
 function display_driver() {
@@ -547,21 +549,13 @@ function packages() {
     fi
 }
 
+function install_yay() {
+    pacman_install "git"
+    arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone https://aur.archlinux.org/$AUR.git && (cd $AUR && makepkg -si --noconfirm) && rm -rf $AUR\""
+}
+
 function packages_aur() {
     arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-
-    if [ -n "$AUR" -o -n "$PACKAGES_AUR" ]; then
-        pacman_install "git"
-
-        case "$AUR" in
-            "aurman" )
-                arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone https://aur.archlinux.org/$AUR.git && gpg --recv-key 465022E743D71E39 && (cd $AUR && makepkg -si --noconfirm) && rm -rf $AUR\""
-                ;;
-            "yay" | *)
-                arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone https://aur.archlinux.org/$AUR.git && (cd $AUR && makepkg -si --noconfirm) && rm -rf $AUR\""
-                ;;
-        esac
-    fi
 
     if [ -n "$PACKAGES_AUR" ]; then
         aur_install "$PACKAGES_AUR"
@@ -572,7 +566,6 @@ function packages_aur() {
 
 function aur_install() {
     set +e
-    arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone https://aur.archlinux.org/$AUR.git && (cd $AUR && makepkg -si --noconfirm) && rm -rf $AUR\""
     IFS=' ' PACKAGES=($1)
     AUR_COMMAND="yay -Syu --noconfirm --needed ${PACKAGES[@]}"
     for VARIABLE in {1..5}
