@@ -577,7 +577,7 @@ function aur_install() {
 }
 
 configure_plymouth() {
-  cat <<EOF /mnt/etc/plymouth.conf
+  cat <<EOF /mnt/etc/plymouth/plymouthd.conf
 [Daemon]
 Theme=script
 ShowDelay=5
