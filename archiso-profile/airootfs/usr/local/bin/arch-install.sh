@@ -412,7 +412,9 @@ function mkinitcpio_configuration() {
 
     pacman_install "lz4"
     install_yay
+    pacman_install "yay"
     aur_install plymouth
+    configure_plymouth
 }
 
 function display_driver() {
@@ -545,7 +547,7 @@ function packages() {
     fi
 
     if [ -n "$AUR" -o -n "$PACKAGES_AUR" ]; then
-        packages_aur
+        aur_install "$PACKAGES_AUR"
     fi
 }
 
@@ -554,17 +556,8 @@ function install_yay() {
     arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone https://aur.archlinux.org/$AUR.git && (cd $AUR && makepkg -si --noconfirm) && rm -rf $AUR\""
 }
 
-function packages_aur() {
-    arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
-
-    if [ -n "$PACKAGES_AUR" ]; then
-        aur_install "$PACKAGES_AUR"
-    fi
-
-    arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-}
-
 function aur_install() {
+    arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
     set +e
     IFS=' ' PACKAGES=($1)
     AUR_COMMAND="yay -Syu --noconfirm --needed ${PACKAGES[@]}"
@@ -578,7 +571,7 @@ function aur_install() {
         fi
     done
     set -e
-    configure_plymouth
+    arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 }
 
 configure_plymouth() {
