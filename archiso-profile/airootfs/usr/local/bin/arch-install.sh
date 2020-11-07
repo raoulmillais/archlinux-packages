@@ -16,7 +16,7 @@ LUKS_DEVICE_NAME="cryptroot"
 CPU_VENDOR="intel"
 
 # mkinitcpio
-HOOKS="base udev usr resume btrfs keyboard autodetect modconf block keymap consolefont encrypt fsck filesystems"
+HOOKS="base udev usr resume btrfs keyboard autodetect modconf block keymap consolefont encrypt filesystems"
 
 # network
 WIFI_INTERFACE=""
@@ -521,7 +521,6 @@ function setup_zsh() {
 
     pacman_install "zsh"
     CUSTOM_SHELL_PATH="/usr/bin/zsh"
-    CUSTOM_SHELL_PATH=""
     arch-chroot /mnt chsh -s $CUSTOM_SHELL_PATH "root"
     arch-chroot /mnt chsh -s $CUSTOM_SHELL_PATH "$USER_NAME"
 
