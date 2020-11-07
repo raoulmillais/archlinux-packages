@@ -1,9 +1,17 @@
-To install [38;2;23;147;209mArch Linux[0m follow the installation guide:
-https://wiki.archlinux.org/index.php/Installation_guide
 
-For Wi-Fi, authenticate to the wireless network using the [35miwctl[0m utility.
-Ethernet and Wi-Fi connections using DHCP should work automatically.
+                       _           _ _ _       _     
+ _ __ __ _  ___  _   _| |_ __ ___ (_) | | __ _(_)___ 
+| '__/ _` |/ _ \| | | | | '_ ` _ \| | | |/ _` | / __|
+| | | (_| | (_) | |_| | | | | | | | | | | (_| | \__ \
+|_|  \__,_|\___/ \__,_|_|_| |_| |_|_|_|_|\__,_|_|___/
+                                                     
 
-After connecting to the internet, the installation guide can be accessed
-via the convenience script [35mInstallation_guide[0m.
 
+                _       _ _                  
+  __ _ _ __ ___| |__   | (_)_ __  _   ___  __
+ / _` | '__/ __| '_ \  | | | '_ \| | | \ \/ /
+| (_| | | | (__| | | | | | | | | | |_| |>  < 
+ \__,_|_|  \___|_| |_| |_|_|_| |_|\__,_/_/\_\
+                                             
+
+Run arch-install.sh
