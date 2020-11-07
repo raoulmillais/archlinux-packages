@@ -598,7 +598,7 @@ function systemd_units() {
 }
 
 function dotfiles() {
-  git clone --separate-git-dir=/mnt/home/$USER_NAME/.dotfiles https://github.com/raoulmillais/dotfiles.git /mnt/home/$USER_NAME/dotfiles-tmp
+    arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone --separate-git-dir=/home/$USER_NAME/.dotfiles https://github.com/raoulmillais/dotfiles.git /home/$USER_NAME/dotfiles-tmp"
 }
 
 function terminate() {
