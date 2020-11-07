@@ -1,6 +1,8 @@
 .PHONY: shellcheck build
 
+clean:
+	sudo rm -rf {out,work}
 build:
-	./build.sh
+	sudo ./build.sh
 shellcheck:
 	@shellcheck bin/* build.sh
