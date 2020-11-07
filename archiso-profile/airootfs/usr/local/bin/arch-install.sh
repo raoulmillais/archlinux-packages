@@ -54,7 +54,7 @@ PACKAGES_PACMAN_OTHERS="tmux"
 PACKAGES_PACMAN_DEVELOPER="virtualbox docker vagrant"
 PACKAGES_PACMAN_CUSTOM="alsa-utils exa zenith bat vifm ripgrep hub bind-tools coreutils dos2unixx fzf lsof"
 
-PACKAGES_DESKTOP_ENVIRONMENT="alacritty compton rofi mate-power-manager i3-gaps i3lock i3status lightdm lightdm-gtk-greeter xorg-server"
+PACKAGES_DESKTOP_ENVIRONMENT="alacritty picom rofi mate-power-manager i3-gaps i3lock i3status lightdm lightdm-gtk-greeter xorg-server"
 
 AUR="yay"
 
@@ -568,6 +568,24 @@ function packages_aur() {
 
     arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
 }
+
+function aur_install() {
+    set +e
+    arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"cd /home/$USER_NAME && git clone https://aur.archlinux.org/$AUR.git && (cd $AUR && makepkg -si --noconfirm) && rm -rf $AUR\""
+    IFS=' ' PACKAGES=($1)
+    AUR_COMMAND="yay -Syu --noconfirm --needed ${PACKAGES[@]}"
+    for VARIABLE in {1..5}
+    do
+        arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"$AUR_COMMAND\""
+        if [ $? == 0 ]; then
+            break
+        else
+            sleep 10
+        fi
+    done
+    set -e
+}
+
 
 function systemd_units() {
     IFS=' ' UNITS=($SYSTEMD_UNITS)
