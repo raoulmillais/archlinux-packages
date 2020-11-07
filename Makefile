@@ -1,4 +1,6 @@
-.PHONY: shellcheck
+.PHONY: shellcheck build
 
+build:
+	./build.sh
 shellcheck:
-	@shellcheck bin/*
+	@shellcheck bin/* build.sh
