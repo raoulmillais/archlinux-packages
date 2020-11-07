@@ -58,7 +58,7 @@ PACKAGES_DESKTOP_ENVIRONMENT="alacritty picom rofi mate-power-manager i3-gaps i3
 
 AUR="yay"
 
-PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith "
+PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith rustup-git"
 
 PACKAGES_PACMAN="$PACKAGES_PACMAN_INTERNET $PACKAGES_PACMAN_MULTIMEDIA $PACKAGES_PACMAN_UTILITIES $PACKAGES_PACMAN_DOCUMENTS_AND_TEXT $PACKAGES_PACMAN_SECURITY $PACKAGES_PACMAN_SCIENCE $PACKAGES_PACMAN_OTHERS $PACKAGES_PACMAN_DEVELOPER $PACKAGES_PACMAN_CUSTOM"
 
@@ -478,7 +478,7 @@ function bootloader() {
     fi
     CMDLINE_LINUX="cryptdevice=PARTUUID=$PARTUUID_ROOT:$LUKS_DEVICE_NAME$BOOTLOADER_ALLOW_DISCARDS"
 
-    CMDLINE_LINUX="$CMDLINE_LINUX rootflags=subvol=root"
+    CMDLINE_LINUX="$CMDLINE_LINUX rootflags=subvol=root quiet loglevel=3 vga=current splash"
 
     if [ "$KMS" == "true" ]; then
         case "$DISPLAY_DRIVER" in
