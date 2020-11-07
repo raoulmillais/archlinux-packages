@@ -412,7 +412,6 @@ function mkinitcpio_configuration() {
 
     pacman_install "lz4"
     install_yay
-    pacman_install "yay"
     aur_install plymouth
     configure_plymouth
 }
