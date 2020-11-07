@@ -80,6 +80,7 @@ main() {
     partition
     install
     configuration
+    users
     mkinitcpio_configuration
     display_driver
     mkinitcpio
@@ -87,7 +88,6 @@ main() {
     if [ "$VIRTUALBOX" == "true" ]; then
         virtualbox
     fi
-    users
     bootloader
     setup_zsh
     desktop_environment
