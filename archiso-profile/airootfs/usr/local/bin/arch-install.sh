@@ -15,6 +15,9 @@ DEVICE_NVME="true"
 LUKS_DEVICE_NAME="cryptroot"
 CPU_VENDOR="intel"
 
+# mkinitcpio
+HOOKS="base udev usr resume btrfs keyboard autodetect modconf block keymap consolefont encrypt fsck filesystems"
+
 # network
 WIFI_INTERFACE=""
 WIFI_ESSID=""
@@ -393,21 +396,10 @@ function mkinitcpio_configuration() {
     arch-chroot /mnt sed -i "s/^MODULES=()/MODULES=($MODULES)/" /etc/mkinitcpio.conf
 
     if [ "$DISPLAY_DRIVER" == "intel" ]; then
-        OPTIONS=""
-        if [ "$FASTBOOT" == "true" ]; then
-            OPTIONS="$OPTIONS fastboot=1"
-        fi
-        if [ "$FRAMEBUFFER_COMPRESSION" == "true" ]; then
-            OPTIONS="$OPTIONS enable_fbc=1"
-        fi
-        if [ -n "$OPTIONS"]; then
-            echo "options i915 $OPTIONS" > /mnt/etc/modprobe.d/i915.conf
-        fi
+        echo "options i915" > /mnt/etc/modprobe.d/i915.conf
     fi
 
-    if [ "$FILE_SYSTEM_TYPE" == "btrfs" ]; then
-        pacman_install "btrfs-progs"
-    fi
+    pacman_install "btrfs-progs"
 
     HOOKS=$(echo $HOOKS | sed 's/!udev/udev/')
     HOOKS=$(echo $HOOKS | sed 's/!usr/usr/')
