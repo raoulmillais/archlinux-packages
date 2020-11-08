@@ -400,7 +400,6 @@ function mkinitcpio_configuration() {
     pacman_install "lz4"
     install_yay
     aur_install plymouth
-    configure_plymouth
 }
 
 function display_driver() {
@@ -552,14 +551,6 @@ function aur_install() {
     arch-chroot /mnt bash -c "echo -e \"$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n$USER_PASSWORD\n\" | su $USER_NAME -c \"$AUR_COMMAND\""
     set -e
     arch-chroot /mnt sed -i 's/%wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
-}
-
-configure_plymouth() {
-  cat <<EOF /mnt/etc/plymouth/plymouthd.conf
-[Daemon]
-Theme=script
-ShowDelay=5
-EOF
 }
 
 function systemd_units() {
