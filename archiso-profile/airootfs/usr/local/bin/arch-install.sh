@@ -29,7 +29,7 @@ PACMAN_MIRROR="https://mirrors.kernel.org/archlinux/\$repo/os/\$arch"
 
 # config
 TIMEZONE="/usr/share/zoneinfo/Europe/London"
-LOCALES=("en_GB.UTF-8 en_US.UTF-8 UTF-8")
+LOCALES=("en_GB.UTF-8 UTF-8")
 LOCALE_CONF=("LANG=en_GB.UTF-8" "LANGUAGE=en_GB:en")
 KEYS="uk"
 KEYMAP="KEYMAP=uk"

@@ -13,7 +13,7 @@ Arch Install
 * [x] Script creation of arch iso to do the install
 * [ ] Split huge install script into sections
 * [ ] Add comments to sections
-* [ ] Clone dotfiles and configure
+* [x] Clone dotfiles and configure
 * [x] Install rustup and toolchains
 * [x] Plymouth theme and luks password theme
 * [ ] LightDM theme
