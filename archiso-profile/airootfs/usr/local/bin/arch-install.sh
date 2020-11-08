@@ -396,17 +396,8 @@ function mkinitcpio_configuration() {
     esac
     arch-chroot /mnt sed -i "s/^MODULES=()/MODULES=($MODULES)/" /etc/mkinitcpio.conf
 
-    if [ "$DISPLAY_DRIVER" == "intel" ]; then
-        echo "options i915" > /mnt/etc/modprobe.d/i915.conf
-    fi
-
     pacman_install "btrfs-progs"
 
-    HOOKS=$(echo $HOOKS | sed 's/!udev/udev/')
-    HOOKS=$(echo $HOOKS | sed 's/!usr/usr/')
-    HOOKS=$(echo $HOOKS | sed 's/!keymap/keymap/')
-    HOOKS=$(echo $HOOKS | sed 's/!consolefont/consolefont/')
-    HOOKS=$(echo $HOOKS | sed 's/!encrypt/encrypt/')
     HOOKS=$(sanitize_variable "$HOOKS")
     arch-chroot /mnt sed -i "s/^HOOKS=(.*)$/HOOKS=($HOOKS)/" /etc/mkinitcpio.conf
 
