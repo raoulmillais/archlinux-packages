@@ -7,14 +7,16 @@ Arch Install
 * [x] Customise and trim down alis for my needs
 * [x] Compton
 * [x] Tridactyl
-* [ ] Ensure virtualbox has /dev/nvme01 device
-* [ ] Test in virtualbox
+* [x] Ensure virtualbox has /dev/nvme01 device
+* [x] Test in virtualbox
+* [x] Investigate arch installer iso
+* [x] Script creation of arch iso to do the install
 * [ ] Split huge install script into sections
 * [ ] Add comments to sections
-* [ ] Investigate arch installer iso
-* [ ] Script creation of arch iso to do the install
 * [ ] Clone dotfiles and configure
-* [ ] Install rustup and toolchains
+* [x] Install rustup and toolchains
+* [x] Plymouth theme and luks password theme
+* [ ] LightDM theme
 * [ ] Install ssh keys
 * [ ] Install gpg keys
 * [ ] Clone and setup notes app
