@@ -46,11 +46,7 @@ DISPLAY_DRIVER="intel"
 # packages (all multiple)
 PACKAGES_PACMAN_INTERNET="firefox firefox-tridactyl curl openssh transmission-gtk" 
 PACKAGES_PACMAN_MULTIMEDIA="feh gimp inkscape vlc gstreamer gst-plugins-good gst-plugins-bad gst-plugins-ugly bluez bluez-utils zathura zathura-pdf-mupdf"
-PACKAGES_PACMAN_UTILITIES="dosfstools"
-PACKAGES_PACMAN_DOCUMENTS_AND_TEXT="neovim"
-PACKAGES_PACMAN_SECURITY=""
-PACKAGES_PACMAN_SCIENCE=""
-PACKAGES_PACMAN_OTHERS="tmux"
+PACKAGES_PACMAN_UTILITIES="dosfstools neovim tmux"
 PACKAGES_PACMAN_DEVELOPER="virtualbox docker vagrant"
 PACKAGES_PACMAN_CUSTOM="alsa-utils exa bat vifm ripgrep hub bind-tools coreutils dos2unix fzf lsof"
 
@@ -58,9 +54,9 @@ PACKAGES_DESKTOP_ENVIRONMENT="alacritty picom rofi mate-power-manager i3-gaps i3
 
 AUR="yay"
 
-PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith"
+PACKAGES_AUR="polybar rofi-dmenu nerd-fonts-complete zenith neovim-symlinks"
 
-PACKAGES_PACMAN="$PACKAGES_PACMAN_INTERNET $PACKAGES_PACMAN_MULTIMEDIA $PACKAGES_PACMAN_UTILITIES $PACKAGES_PACMAN_DOCUMENTS_AND_TEXT $PACKAGES_PACMAN_SECURITY $PACKAGES_PACMAN_SCIENCE $PACKAGES_PACMAN_OTHERS $PACKAGES_PACMAN_DEVELOPER $PACKAGES_PACMAN_CUSTOM"
+PACKAGES_PACMAN="$PACKAGES_PACMAN_INTERNET $PACKAGES_PACMAN_MULTIMEDIA $PACKAGES_PACMAN_UTILITIES $PACKAGES_PACMAN_DEVELOPER $PACKAGES_PACMAN_CUSTOM"
 
 SYSTEMD_UNITS=""
 #
